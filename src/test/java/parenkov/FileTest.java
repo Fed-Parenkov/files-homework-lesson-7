@@ -102,21 +102,22 @@ public class FileTest {
 //        }
 
 
-    @Test
-    void txtTest() throws Exception {
+//    @Test
+//    void txtTest() throws Exception {
+//
+//        FileReader fr = new FileReader("txtTestFile.txt");
+//        Scanner scan = new Scanner(fr);
+//    }
 
-        FileReader fr = new FileReader("txtTestFile.txt");
-        Scanner scan = new Scanner(fr);
-
-        int i = 1;
-
-        while (scan.hasNextLine()) {
-            System.out.println(i + " : " + scan.nextLine());
-            i++;
-        }
-
-        fr.close();
-    }
+//        int i = 1;
+//
+//        while (scan.hasNextLine()) {
+//            System.out.println(i + " : " + scan.nextLine());
+//            i++;
+//        }
+//
+//        fr.close();
+//    }
 
 
 //        while(in.hasNext()) {
