@@ -28,3 +28,6 @@ tasks.withType(JavaCompile) {
 test {
     useJUnitPlatform()
 }
+
+//sourceCompatibility = 11
+//targetCompatibility = 11
