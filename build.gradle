@@ -12,6 +12,7 @@ def selenideVersion = '5.24.3',
 dependencies {
     testImplementation (
             "com.codeborne:selenide:$selenideVersion",
+            'org.docx4j:docx4j:6.1.2',
             "com.codeborne:pdf-test:1.6.1",
             "com.codeborne:xls-test:1.4.3",
             'com.opencsv:opencsv:5.5.2',
