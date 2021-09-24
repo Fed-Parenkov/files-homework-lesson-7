@@ -2,17 +2,16 @@ package parenkov;
 
 import com.codeborne.pdftest.PDF;
 import com.codeborne.xlstest.XLS;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.junit.jupiter.api.Test;
 
-import java.io.*;
+import java.io.InputStream;
 import java.util.List;
 
-
-import org.apache.poi.xwpf.usermodel.XWPFParagraph;
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class Files {
+public class FilesRead {
 
 
     @Test
@@ -77,8 +76,3 @@ public class Files {
         }
     }
 }
-
-
-
-
-
