@@ -85,24 +85,44 @@ public class FilesRead {
 
     @Test
     void zipProtectedTest() throws Exception {
-       String source = "./src/test/resources/zipProtected.zip";
+        String source = "./src/test/resources/zipProtected.zip";
         String destination = "./src/test/resources/";
         String password = "qwerty";
-        try {
-            ZipFile zipFile = new ZipFile(source);
+
+        try (ZipFile zipFile = new ZipFile(source)) {
             if (zipFile.isEncrypted()) {
                 zipFile.setPassword(password.toCharArray());
             }
             zipFile.extractAll(destination);
-        } catch (ZipException e) {
-            e.printStackTrace();
+        }
+
+        String result;
+        try (InputStream is = getClass().getClassLoader().getResourceAsStream("txt111.txt")) {
+            result = new String(is.readAllBytes(), "UTF-8");
+            assertThat(result).contains("SDET (Software Development Engineer in Test)" +
+                    " инженер по разработке ПО в тестировании");
         }
     }
 
 
-
-
 }
+
+
+//        try {
+//            ZipFile zipFile = new ZipFile(source);
+//            if (zipFile.isEncrypted()) {
+//                zipFile.setPassword(password.toCharArray());
+//            }
+//            zipFile.extractAll(destination);
+//        } catch (ZipException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+
+
+
+
 
 
 
