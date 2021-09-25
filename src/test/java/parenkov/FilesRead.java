@@ -26,8 +26,8 @@ public class FilesRead {
     @Test
     void pdfTest() throws Exception {
 
-        try (InputStream file = getClass().getClassLoader().getResourceAsStream("pdf.pdf")) {
-            PDF parsed = new PDF(file);
+        try (InputStream is = getClass().getClassLoader().getResourceAsStream("pdf.pdf")) {
+            PDF parsed = new PDF(is);
             assertThat(parsed.text).contains("SDET (Software Development Engineer in Test) " +
                     "инженер по разработке ПО в тестировании");
         }
@@ -75,35 +75,28 @@ public class FilesRead {
             ZipInputStream zis = new ZipInputStream(is);
             zis.getNextEntry();
             Scanner sc = new Scanner(zis, "UTF-8");
-            while (sc.hasNextLine()) {
-                System.out.println(sc.nextLine());
-                }
-
-
-
-//                char[] result = str.toCharArray();
-//
-//                System.out.println("Char array:");
-//                for (int i = 0; i < result.length; i++)
-//                    System.out.println("Element [" + i + "]: " + result[i]);
-            }
-        }
-
-
-
-    @Test
-    void zipProtectedTest() throws Exception {
-        try (InputStream is = getClass().getClassLoader().getResourceAsStream("zipProtected.zip")) {
-            ZipInputStream zis = new ZipInputStream(is);
-            zis.getNextEntry();
-            Scanner sc = new Scanner(zis, "UTF-8");
-            while (sc.hasNextLine()) {
-                System.out.println(sc.nextLine());
-            }
+            String firstLineInTheTextFile = sc.nextLine();
+            assertThat(firstLineInTheTextFile).contains("SDET (Software Development Engineer in Test)" +
+                    " инженер по разработке ПО в тестировании");
         }
     }
 
 
 
+//    @Test
+//    void zipProtectedTest() throws Exception {
+//        try (InputStream is = getClass().getClassLoader().getResourceAsStream("zipProtected.zip")) {
+//            ZipInputStream zis = new ZipInputStream(is);
+//            zis.getNextEntry();
+//            Scanner sc = new Scanner(zis, "UTF-8");
+//            while (sc.hasNextLine()) {
+//                System.out.println(sc.nextLine());
+//            }
+//        }
+
 
 }
+
+
+
+
