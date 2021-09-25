@@ -2,6 +2,7 @@ package parenkov;
 
 import com.codeborne.pdftest.PDF;
 import com.codeborne.xlstest.XLS;
+import net.lingala.zip4j.exception.ZipException;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,7 @@ import java.util.Scanner;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import net.lingala.zip4j.ZipFile;
+import net.lingala.zip4j.exception.ZipException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -25,7 +27,6 @@ public class FilesRead {
 
     @Test
     void pdfTest() throws Exception {
-
         try (InputStream is = getClass().getClassLoader().getResourceAsStream("pdf.pdf")) {
             PDF parsed = new PDF(is);
             assertThat(parsed.text).contains("SDET (Software Development Engineer in Test) " +
@@ -82,17 +83,23 @@ public class FilesRead {
     }
 
 
+    @Test
+    void zipProtectedTest() throws Exception {
+       String source = "./src/test/resources/zipProtected.zip";
+        String destination = "./src/test/resources/";
+        String password = "qwerty";
+        try {
+            ZipFile zipFile = new ZipFile(source);
+            if (zipFile.isEncrypted()) {
+                zipFile.setPassword(password.toCharArray());
+            }
+            zipFile.extractAll(destination);
+        } catch (ZipException e) {
+            e.printStackTrace();
+        }
+    }
 
-//    @Test
-//    void zipProtectedTest() throws Exception {
-//        try (InputStream is = getClass().getClassLoader().getResourceAsStream("zipProtected.zip")) {
-//            ZipInputStream zis = new ZipInputStream(is);
-//            zis.getNextEntry();
-//            Scanner sc = new Scanner(zis, "UTF-8");
-//            while (sc.hasNextLine()) {
-//                System.out.println(sc.nextLine());
-//            }
-//        }
+
 
 
 }
