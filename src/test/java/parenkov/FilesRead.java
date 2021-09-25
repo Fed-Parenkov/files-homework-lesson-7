@@ -14,7 +14,6 @@ import java.util.zip.ZipInputStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
 public class FilesRead {
 
     @Test
@@ -57,7 +56,6 @@ public class FilesRead {
         }
     }
 
-
     @Test
     void zipTest() throws Exception {
         try (InputStream is = getClass().getClassLoader().getResourceAsStream("zip.zip")) {
@@ -70,8 +68,8 @@ public class FilesRead {
         }
     }
 
-
     @Test
+    // unzip protected archive and read txt file
     void zipProtectedTest() throws Exception {
         String source = "./src/test/resources/zipProtected.zip";
         String destination = "./src/test/resources/";
