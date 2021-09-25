@@ -2,23 +2,15 @@ package parenkov;
 
 import com.codeborne.pdftest.PDF;
 import com.codeborne.xlstest.XLS;
-import net.lingala.zip4j.exception.ZipException;
+import net.lingala.zip4j.ZipFile;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.junit.jupiter.api.Test;
 
-import java.io.BufferedReader;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.Scanner;
-import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
-import net.lingala.zip4j.ZipFile;
-import net.lingala.zip4j.exception.ZipException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -36,7 +28,6 @@ public class FilesRead {
 
     @Test
     void xlsxTest() throws Exception {
-
         try (InputStream is = getClass().getClassLoader().getResourceAsStream("xlsx.xlsx")) {
             XLS parsed = new XLS(is);
             assertThat(parsed.excel.getSheetAt(0).getRow(8).getCell(1).getStringCellValue())
@@ -46,9 +37,8 @@ public class FilesRead {
 
     @Test
     void txtTest() throws Exception {
-        String result;
         try (InputStream is = getClass().getClassLoader().getResourceAsStream("txt.txt")) {
-            result = new String(is.readAllBytes(), "UTF-8");
+            String result = new String(is.readAllBytes(), "UTF-8");
             assertThat(result).contains("SDET (Software Development Engineer in Test)" +
                     " инженер по разработке ПО в тестировании");
         }
@@ -56,13 +46,11 @@ public class FilesRead {
 
     @Test
     void docxTest() throws Exception {
-        String result;
-
         try (InputStream is = getClass().getClassLoader().getResourceAsStream("docx.docx")) {
             XWPFDocument document = new XWPFDocument(is);
             List<XWPFParagraph> paragraphs = document.getParagraphs();
             for (XWPFParagraph docxText : paragraphs) {
-                result = docxText.getText();
+                String result = docxText.getText();
                 assertThat(result).contains("SDET (Software Development Engineer in Test)" +
                         " инженер по разработке ПО в тестировании");
             }
@@ -88,37 +76,19 @@ public class FilesRead {
         String source = "./src/test/resources/zipProtected.zip";
         String destination = "./src/test/resources/";
         String password = "qwerty";
-
         try (ZipFile zipFile = new ZipFile(source)) {
             if (zipFile.isEncrypted()) {
                 zipFile.setPassword(password.toCharArray());
             }
             zipFile.extractAll(destination);
         }
-
-        String result;
         try (InputStream is = getClass().getClassLoader().getResourceAsStream("txt111.txt")) {
-            result = new String(is.readAllBytes(), "UTF-8");
+            String result = new String(is.readAllBytes(), "UTF-8");
             assertThat(result).contains("SDET (Software Development Engineer in Test)" +
                     " инженер по разработке ПО в тестировании");
         }
     }
-
-
 }
-
-
-//        try {
-//            ZipFile zipFile = new ZipFile(source);
-//            if (zipFile.isEncrypted()) {
-//                zipFile.setPassword(password.toCharArray());
-//            }
-//            zipFile.extractAll(destination);
-//        } catch (ZipException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
 
 
 
