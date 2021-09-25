@@ -69,7 +69,7 @@ public class FilesRead {
     }
 
     @Test
-    // unzip protected archive and read txt file
+    // unzip the protected archive and read txt file
     void zipProtectedTest() throws Exception {
         String source = "./src/test/resources/zipProtected.zip";
         String destination = "./src/test/resources/";
