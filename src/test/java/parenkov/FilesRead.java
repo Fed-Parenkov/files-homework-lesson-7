@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Scanner;
@@ -76,9 +77,17 @@ public class FilesRead {
             Scanner sc = new Scanner(zis, "UTF-8");
             while (sc.hasNextLine()) {
                 System.out.println(sc.nextLine());
+                }
+
+
+
+//                char[] result = str.toCharArray();
+//
+//                System.out.println("Char array:");
+//                for (int i = 0; i < result.length; i++)
+//                    System.out.println("Element [" + i + "]: " + result[i]);
             }
         }
-    }
 
 
 
