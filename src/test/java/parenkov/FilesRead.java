@@ -83,8 +83,8 @@ public class FilesRead {
 
 
     @Test
-    void zipEncriptedTest() throws Exception {
-        try (InputStream is = getClass().getClassLoader().getResourceAsStream("zipEncripted.zip")) {
+    void zipProtectedTest() throws Exception {
+        try (InputStream is = getClass().getClassLoader().getResourceAsStream("zipProtected.zip")) {
             ZipInputStream zis = new ZipInputStream(is);
             zis.getNextEntry();
             Scanner sc = new Scanner(zis, "UTF-8");
